@@ -5,7 +5,7 @@
  * @info: Structure containing potential arguments.
  * Return: Always 0
  */
-int _myenv(info_t *info)
+int _env(info_t *info)
 {
 	print_list_str(info->env);
 	return (0);
@@ -44,7 +44,7 @@ int _mysetenv(info_t *info)
 {
 	if (info->argc != 3)
 	{
-		_eputs("Incorrect number of arguements\n");
+	eputs("Incorrect number of arguements\n");
 		return (1);
 	}
 	if (_setenv(info, info->argv[1], info->argv[2]))
@@ -64,7 +64,7 @@ int _myunsetenv(info_t *info)
 
 	if (info->argc == 1)
 	{
-		_eputs("Too few arguements.\n");
+		eputs("Too few arguements.\n");
 		return (1);
 	}
 	for (i = 1; i <= info->argc; i++)

@@ -1,19 +1,19 @@
 #include "shell.h"
 
 /**
- * _erratoi - Converts astring to int.
+ * erratoi - Converts astring to int.
  * @s: String to be converted.
  * Return: 0 if no numbers in string, converted number otherwise
  *       -1 on error
  */
 
-int _erratoi(char *s)
+int erratoi(char *s)
 {
 	int i = 0;
 	unsigned long int result = 0;
 
 	if (*s == '+')
-		s++;  /* TODO: why does this make main return 255? */
+		s++;
 	for (i = 0;  s[i] != '\0'; i++)
 	{
 		if (s[i] >= '0' && s[i] <= '9')
@@ -30,22 +30,22 @@ int _erratoi(char *s)
 }
 
 /**
- * print_error - Prints  error message.
+ * error_print - Prints  error message.
 * @estr: String cotains specified error.
  * @info: Parameter & return info struct
  * Return: 0 if no numbers in string, converted number otherwise
  *        -1 on error
  */
 
-void print_error(info_t *info, char *estr)
+void error_print(info_t *info, char *estr)
 {
-	_eputs(info->fname);
-	_eputs(": ");
+	eputs(info->fname);
+	eputs(": ");
 	print_d(info->line_count, STDERR_FILENO);
-	_eputs(": ");
-	_eputs(info->argv[0]);
-	_eputs(": ");
-	_eputs(estr);
+	eputs(": ");
+	eputs(info->argv[0]);
+	eputs(": ");
+	eputs(estr);
 }
 
 /**
@@ -88,14 +88,14 @@ int print_d(int input, int fd)
 }
 
 /**
- * convert_number - Converter fun clone of itoa.
+ * conv_number - Converter fun clone of itoa.
 * @base: base
  * @flags: Argument flags
  * @num: Number
  * Return: String.
  */
 
-char *convert_number(long int num, int base, int flags)
+char *conv_number(long int num, int base, int flags)
 {
 	static char *array;
 	static char buffer[50];
@@ -124,12 +124,12 @@ char *convert_number(long int num, int base, int flags)
 }
 
 /**
- * remove_comments - Fun replace first instance of '#' with '\0'
+ * rem_comments - Fun replace first instance of '#' with '\0'
  * @buf: Address of string to modify.
  * Return: Always 0;
  */
 
-void remove_comments(char *buf)
+void rem_comments(char *buf)
 {
 	int i;
 
@@ -140,4 +140,3 @@ void remove_comments(char *buf)
 			break;
 		}
 }
-

@@ -1,12 +1,12 @@
 #include "shell.h"
 
 /**
- *_eputs - Prints input string.
+ *eputs - Prints input string.
  * @str: String to print.
  * Return: Nothing
  */
 
-void _eputs(char *str)
+void eputs(char *str)
 {
 	int i = 0;
 
@@ -82,4 +82,3 @@ int _putsfd(char *str, int fd)
 	}
 	return (i);
 }
-

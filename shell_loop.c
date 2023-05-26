@@ -14,24 +14,24 @@ int  hsh(info_t *info, char **av)
 
 	while (r != -1 && builtin_ret != -2)
 	{
-		clear_info(info);
+		info_clear(info);
 		if (interactive(info))
 			_puts("$ ");
 		_eputchar(BUF_FLUSH);
 		r = get_input(info);
 		if (r != -1)
 		{
-			set_info(info, av);
+			info_set(info, av);
 			builtin_ret = find_builtin(info);
 			if (builtin_ret == -1)
 				find_comd(info);
 		}
 		else if (interactive(info))
 			_putchar('\n');
-		free_info(info, 0);
+		info_free(info, 0);
 	}
 	write_history(info);
-	free_info(info, 1);
+	info_free(info, 1);
 	if (!interactive(info) && info->status)
 		exit(info->status);
 	if (builtin_ret == -2)
@@ -56,14 +56,14 @@ int find_builtin(info_t *info)
 {
 	int i, built_in_ret = -1;
 	builtin_table builtintbl[] = {
-		{"exit", _myexit},
-		{"env", _myenv},
-		{"help", _myhelp},
-		{"history", _myhistory},
+		{"exit", exiting},
+		{"env", _env},
+		{"help", help_pro},
+		{"history", history},
 		{"setenv", _mysetenv},
 		{"unsetenv", _myunsetenv},
-		{"cd", _mycd},
-		{"alias", _myalias},
+		{"cd", cd},
+		{"alias", alias},
 		{NULL, NULL}
 	};
 
@@ -95,7 +95,7 @@ void find_comd(info_t *info)
 		info->linecount_flag = 0;
 	}
 	for (i = 0, k = 0; info->arg[i]; i++)
-		if (!is_delim(info->arg[i], " \t\n"))
+		if (!delim_is(info->arg[i], " \t\n"))
 			k++;
 	if (!k)
 		return;
@@ -114,7 +114,7 @@ void find_comd(info_t *info)
 		else if (*(info->arg) != '\n')
 		{
 			info->status = 127;
-			print_error(info, "not found\n");
+			error_print(info, "not found\n");
 		}
 	}
 }
@@ -132,7 +132,7 @@ void fork_comd(info_t *info)
 	child_pid = fork();
 	if (child_pid == -1)
 	{
-		/* TODO: PUT ERROR FUNCTION */
+
 		perror("Error:");
 		return;
 	}
@@ -140,12 +140,12 @@ void fork_comd(info_t *info)
 	{
 		if (execve(info->path, info->argv, get_environ(info)) == -1)
 		{
-			free_info(info, 1);
+			info_free(info, 1);
 			if (errno == EACCES)
 				exit(126);
 			exit(1);
 		}
-		/* TODO: PUT ERROR FUNCTION */
+
 	}
 	else
 	{
@@ -154,7 +154,7 @@ void fork_comd(info_t *info)
 		{
 			info->status = WEXITSTATUS(info->status);
 			if (info->status == 126)
-				print_error(info, "Permission denied\n");
+			error_print(info, "Permission denied\n");
 		}
 	}
 }

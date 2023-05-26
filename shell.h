@@ -23,7 +23,7 @@
 #define CONVERT_LOWERCASE	1
 #define USE_STRTOK 0
 #define CMD_AND		2
-#define USE_GETLINE 0
+#define USE_GET_LINE 0
 #define CONVERT_UNSIGNED	2
 #define HIST_FILE	".simple_shell_history"
 
@@ -108,49 +108,49 @@ typedef struct builtin
 } builtin_table;
 
 int interactive(info_t *info);
-int  is_delim(char c, char *delim);
-int  _isalpha(int c);
+int  delim_is(char c, char *delim);
+int  alpha(int c);
 int  _atoi(char *s);
-int   hsh(info_t *info, char **av);
+int  hsh(info_t *info, char **av);
 int find_builtin(info_t *info);
 void find_comd(info_t *info);
 void fork_comd(info_t *info);
 char *_strncopy(char *dest, char *src, int n);
 char *_strncat(char *dest, char *src, int n);
-char *_strchr(char *s, char c);
+char *strchar(char *s, char c);
 int main(int ac, char **av);
 char **get_environ(info_t *info);
 int _unsetenv(info_t *info, char *var);
 int _setenv(info_t *info, char *var, char *value);
-int _myenv(info_t *info);
+int _env(info_t *info);
 char *_getenv(info_t *info, const char *name);
 int _mysetenv(info_t *info);
 int _myunsetenv(info_t *info);
 int populate_env_list(info_t *info);
-void clear_info(info_t *info);
-void set_info(info_t *info, char **av);
-void free_info(info_t *info, int all);
-int _myexit(info_t *info);
-int _mycd(info_t *info);
-int _myhelp(info_t *info);
-int _myhistory(info_t *info);
-int unset_alias(info_t *info, char *str);
+void info_clear(info_t *info);
+void info_set(info_t *info, char **av);
+void info_free(info_t *info, int all);
+int exiting(info_t *info);
+int cd(info_t *info);
+int help_pro(info_t *info);
+int history(info_t *info);
+int alias_unset(info_t *info, char *str);
 int set_alias(info_t *info, char *str);
 int print_alias(list_t *node);
-int _myalias(info_t *info);
-void _eputs(char *str);
+int alias(info_t *info);
+void eputs(char *str);
 int _eputchar(char c);
 int _putfd(char c, int fd);
 int _putsfd(char *str, int fd);
-int _erratoi(char *s);
-void print_error(info_t *info, char *estr);
+int erratoi(char *s);
+void error_print(info_t *info, char *estr);
 int print_d(int input, int fd);
-char *convert_number(long int num, int base, int flags);
-void remove_comments(char *buf);
-ssize_t input_buf(info_t *info, char **buf, size_t *len);
+char *conv_number(long int num, int base, int flags);
+void rem_comments(char *buf);
+ssize_t buffer_input(info_t *info, char **buf, size_t *len);
 ssize_t get_input(info_t *info);
 ssize_t read_buf(info_t *info, char *buf, size_t *i);
-int _getline(info_t *info, char **ptr, size_t *length);
+int get_line(info_t *info, char **ptr, size_t *length);
 void sigintHandler(__attribute__((unused))int sig_num);
 char *get_history_file(info_t *info);
 int write_history(info_t *info);
@@ -183,8 +183,8 @@ char *_strcopy(char *dest, char *src);
 char *_strdup(const char *str);
 void _puts(char *str);
 int _putchar(char c);
-char **strtow(char *str, char *d);
-char **strtow2(char *str, char d);
+char **strtoke(char *str, char *d);
+char **strtoke2(char *str, char d);
 size_t list_len(const list_t *h);
 char **list_to_strings(list_t *head);
 size_t print_list(const list_t *h);

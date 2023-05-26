@@ -60,13 +60,13 @@ char *_strncat(char *dest, char *src, int n)
 }
 
 /**
- **_strchr - Locates a char a string.
- *@c: Character to look 
+ **strchar - Locates a char a string.
+ *@c: Character to look
  *@s: String be parsed.
  *Return: (s) a pointer to the memory area s
  */
 
-char *_strchr(char *s, char c)
+char *strchar(char *s, char c)
 {
 	do {
 		if (*s == c)
@@ -75,4 +75,3 @@ char *_strchr(char *s, char c)
 
 	return (NULL);
 }
-
