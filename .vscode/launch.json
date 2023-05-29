@@ -6,8 +6,8 @@
       "type": "lldb",
       "request": "launch",
       "args": [],
-      "cwd": "/Users/kotlin/california/simple_shell",
-      "program": "/Users/kotlin/california/simple_shell/build/Debug/outDebug"
+      "cwd": "/Users/kotlin/forked1/simple_shell",
+      "program": "/Users/kotlin/forked1/simple_shell/build/Debug/outDebug"
     }
   ]
 }
